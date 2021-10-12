@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -10,10 +10,13 @@ import {
 } from 'react-native';
 import { COLORS, FONTS, icons } from '../constants';
 import { ProductsDummyData } from '../src/data';
+import { useNavigation } from '@react-navigation/native';
+import { ProductType } from '../src/types/DataTypes';
 
-const ProductList = ({ navigation }) => {
-  const [product_list, setProductList] = React.useState(ProductsDummyData);
-  function renderProductList(item, index) {
+const ProductList: React.FC = () => {
+  const navigation = useNavigation()
+  const [product_list, setProductList] = useState<ProductType[]>(ProductsDummyData);
+  function renderProductList(item: ProductType, index: number) {
     return (
       <View
         style={{

@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { TrendingDummyData } from '../data'
+import { TrendingType } from '../types/DataTypes'
 import { API_CLOTHES, API_AVAILABLE_CLOTHES, API_SETTING } from '../../constants'
 
-const ClothesContext = React.createContext()
+const ClothesContext = React.createContext({})
 
-const ClothesProvider = (props) => {
+const ClothesProvider: React.FC = (props) => {
 
     // Dummy Data
-    const [trending, setTrending] = useState(TrendingDummyData);
+    const [trending, setTrending] = useState<TrendingType[]>(TrendingDummyData);
 
-    const [trendingClothes, setTrendingClothes] = useState([]);
-    const [recentlyViewed, setRecentlyViewed] = useState([]);
+    const [trendingClothes, setTrendingClothes] = useState<TrendingType[]>([]);
+    const [recentlyViewed, setRecentlyViewed] = useState<TrendingType[]>([]);
 
     const fetchClothesList = async () => {
         const response = await fetch(API_CLOTHES, API_SETTING)
@@ -18,6 +19,7 @@ const ClothesProvider = (props) => {
             .catch((error) => {
                 console.error(error);
             });
+        console.warn('response from clothes list', response)
         setTrendingClothes(response);
     }
 
@@ -27,6 +29,7 @@ const ClothesProvider = (props) => {
             .catch((error) => {
                 console.error(error);
             });
+        console.warn('response from availeable clothes', response)
         setRecentlyViewed(response);
     }
 
